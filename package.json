@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/strdr4605/ln-config/issues"
   },
-  "homepage": "https://github.com/strdr4605/ln-config#readme"
+  "homepage": "https://github.com/strdr4605/ln-config#readme",
+  "devDependencies": {
+    "eslint": "^8.12.0"
+  }
 }
