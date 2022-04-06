@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const child_process = require("child_process");
 
 const GREEN = "\x1b[0m\x1b[32m";
 const BOLD_YELLOW = "\x1b[1m\x1b[33m";
@@ -10,6 +11,33 @@ const RESET = "\x1b[0m";
 
 const _dirname = process.cwd();
 const sourceDir = path.join(_dirname, "./support/root/");
+
+const [, , arg] = process.argv;
+
+if (arg) {
+  if (!fs.existsSync(path.join(_dirname, arg))) {
+    console.log(`${arg} does not exists.`);
+    return;
+  }
+  if (fs.existsSync(path.join(sourceDir, arg))) {
+    console.log(
+      `${arg} already exists in ${sourceDir.replace(_dirname + "/", "")}`
+    );
+    return;
+  }
+  try {
+    if (!fs.existsSync(sourceDir)) {
+      fs.mkdirSync(sourceDir, { recursive: true });
+      console.log("Directory support/root was created.");
+    }
+
+    fs.renameSync(path.join(_dirname, arg), path.join(sourceDir, arg));
+    fs.appendFileSync(path.join(_dirname, ".gitignore"), `/${arg}`);
+    child_process.execSync(`git rm -rf ${arg}`);
+  } catch (err) {
+    console.log(err);
+  }
+} 
 
 const targets = fs
   .readdirSync(sourceDir)
