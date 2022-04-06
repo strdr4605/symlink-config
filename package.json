@@ -1,14 +1,19 @@
 {
-  "name": "ln-config",
+  "name": "symlink-config",
   "version": "0.1.0",
   "description": "A tool to symlink your project config files to root",
-  "main": "index.js",
+  "main": "src/index.js",
+  "bin": "src/index.js",
+  "files": [
+    "src"
+  ],
   "scripts": {
+    "prepare": "./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/strdr4605/ln-config.git"
+    "url": "git+ssh://git@github.com/strdr4605/symlink-config.git"
   },
   "keywords": [
     "symlink",
@@ -18,9 +23,9 @@
   "author": "Dragoș Străinu @strdr4605",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/strdr4605/ln-config/issues"
+    "url": "https://github.com/strdr4605/symlink-config/issues"
   },
-  "homepage": "https://github.com/strdr4605/ln-config#readme",
+  "homepage": "https://github.com/strdr4605/symlink-config#readme",
   "devDependencies": {
     "eslint": "^8.12.0"
   }
