@@ -55,9 +55,9 @@ if (!fs.existsSync(sourceDir)) {
     `${sourceDir.replace(
       _dirname + "/",
       ""
-    )} does not exists, create manually, or run\n\nnpx symlink-config .examplerc`
+    )} does not exists, create manually, or run\n\nnpx symlink-config .examplerc\n`
   );
-  process.exit(1);
+  process.exit(0);
 }
 
 const targets = fs
