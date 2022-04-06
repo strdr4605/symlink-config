@@ -10,7 +10,18 @@ const PURPLE = "\x1b[0m\x1b[35m";
 const RESET = "\x1b[0m";
 
 const _dirname = process.cwd();
-const sourceDir = path.join(_dirname, "./support/root/");
+if (!fs.existsSync(path.join(_dirname, "./package.json"))) {
+  console.log("No package.json found, please run command at root of project");
+  process.exit(1);
+}
+
+const packageJSON = JSON.parse(
+  fs.readFileSync(path.join(_dirname, "./package.json"))
+);
+
+const sourceDirName = packageJSON["symlink-config"]?.path || "./support/root";
+
+const sourceDir = path.join(_dirname, sourceDirName);
 
 const [, , arg] = process.argv;
 
@@ -37,12 +48,22 @@ if (arg) {
   } catch (err) {
     console.log(err);
   }
-} 
+}
+
+if (!fs.existsSync(sourceDir)) {
+  console.log(
+    `${sourceDir.replace(
+      _dirname + "/",
+      ""
+    )} does not exists, create manually, or run\n\nnpx symlink-config .examplerc`
+  );
+  process.exit(1);
+}
 
 const targets = fs
   .readdirSync(sourceDir)
   // Exclude the `readme.md` file from being symlinked.
-  .filter((filename) => !filename.endsWith("readme.md"))
+  .filter((filename) => !filename.toLowerCase().endsWith("readme.md"))
   .map((filename) => ({
     original: path.join(sourceDir, filename),
     target: path.join(_dirname, filename),
@@ -132,5 +153,5 @@ for (const { original, target } of targets) {
 }
 
 console.log(
-  "\n\u001B[32mSuccessfully symlinked the `support/root` files to the root directory.\u001B[0m\n"
+  `\n\u001B[32mSuccessfully symlinked the ${sourceDirName} files to the root directory.\u001B[0m\n`
 );
