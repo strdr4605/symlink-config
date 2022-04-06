@@ -104,3 +104,7 @@ dist
 # TernJS port file
 .tern-port
 /.eslintrc.js
+/.husky
+/.lintstagedrc.js
+/.prettierrc.js
+/commitlint.config.js
