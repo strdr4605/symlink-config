@@ -43,7 +43,7 @@ if (arg) {
     }
 
     fs.renameSync(path.join(_dirname, arg), path.join(sourceDir, arg));
-    fs.appendFileSync(path.join(_dirname, ".gitignore"), `/${arg}`);
+    fs.appendFileSync(path.join(_dirname, ".gitignore"), `/${arg}\n`);
     child_process.execSync(`git rm -rf ${arg}`);
   } catch (err) {
     console.log(err);
@@ -129,6 +129,9 @@ function isLinkedTo(path, target) {
   }
 }
 
+const gitignorePath = path.join(_dirname, ".gitignore");
+const gitignoreFile = fs.readFileSync(gitignorePath, "utf-8");
+
 for (const { original, target } of targets) {
   const targetStat = getFileStatSync(target);
 
@@ -150,6 +153,13 @@ for (const { original, target } of targets) {
     )} ${BOLD_YELLOW}to ${PURPLE}${target.replace(_dirname + "/", "")}${RESET}`
   );
   fs.symlinkSync(original, target);
+  if (!gitignoreFile.includes(`/${target.replace(_dirname + "/", "")}\n`)) {
+    console.log(`Adding /${target.replace(_dirname + "/", "")} to .gitignore`);
+    fs.appendFileSync(
+      gitignorePath,
+      `/${target.replace(_dirname + "/", "")}\n`
+    );
+  }
 }
 
 console.log(
