@@ -8,7 +8,7 @@ Make the root of your project cleaner when checking on the repo hub.
 
 ## Demo
 
-You can check this repo! It has configs for eslint, prettier, lint-staged, husky, and commitlint.
+You can check this repo! It has configs for eslint, prettier, lint-staged, husky, and commitlint.  
 All configs are in [./support/root](/support/root).
 
 ## Usage
