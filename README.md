@@ -4,19 +4,24 @@ A tool to symlink your project config files to root
 
 ## Why
 
-To make the root of your project cleaner when checking on repo hub.
+Make the root of your project cleaner when checking on the repo hub.
+
+## Demo
+
+You can check this repo! It has configs for eslint, prettier, lint-staged, husky, and commitlint.
+All configs are in [./support/root](/support/root).
 
 ## Usage
 
 ```bash
-npm i symlink-config
+npm install symlink-config
 ```
 
 In package.json:
 
 ```json
   "scripts": {
-    "prepare": "npx symlink-config"    
+    "prepare": "npx symlink-config"
   }
 ```
 
@@ -30,10 +35,9 @@ If you want to change the name of your sourceDir for config files:
 
 ```json
   "scripts": {
-    "prepare": "npx symlink-config"    
+    "prepare": "npx symlink-config"
   },
   "symlink-config": {
     "path": "./allRootConfigs"
   }
 ```
-
