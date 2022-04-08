@@ -4,7 +4,8 @@ A tool to symlink your project config files to root
 
 ## Why
 
-Make the root of your project cleaner when checking on the repo hub.
+Make the root of your project cleaner when checking on the repo hub.  
+[Keep your JavaScript repository clean](https://strdr4605.com/keep-your-java-script-repository-clean)
 
 ## Demo
 
