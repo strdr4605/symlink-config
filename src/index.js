@@ -28,13 +28,13 @@ const [, , arg] = process.argv;
 if (arg) {
   if (!fs.existsSync(path.join(_dirname, arg))) {
     console.log(`${arg} does not exists.`);
-    return;
+    process.exit(1);
   }
   if (fs.existsSync(path.join(sourceDir, arg))) {
     console.log(
       `${arg} already exists in ${sourceDir.replace(_dirname + "/", "")}`
     );
-    return;
+    process.exit(1);
   }
   try {
     if (!fs.existsSync(sourceDir)) {
@@ -46,7 +46,7 @@ if (arg) {
     fs.appendFileSync(path.join(_dirname, ".gitignore"), `/${arg}\n`);
     child_process.execSync(`git rm -rf ${arg}`);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
