@@ -1,4 +1,10 @@
-# symlink-config
+# symlink-config 
+
+![version](https://badgen.net/npm/v/symlink-config)
+![npm downloads](https://badgen.net/npm/dm/symlink-config)
+![dependents](https://badgen.net/npm/dependents/symlink-config)
+![publish](https://badgen.net/packagephobia/publish/symlink-config)
+[![Hits-of-Code](https://hitsofcode.com/github/strdr4605/symlink-config?branch=master)](https://hitsofcode.com/github/strdr4605/symlink-config/view?branch=master)
 
 A tool to symlink your project config files to root
 
