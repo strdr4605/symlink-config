@@ -23,30 +23,32 @@ const sourceDirName = packageJSON["symlink-config"]?.path || "./support/root";
 
 const sourceDir = path.join(_dirname, sourceDirName);
 
-const [, , arg] = process.argv;
+const args = process.argv.slice(2);
 
-if (arg) {
-  if (!fs.existsSync(path.join(_dirname, arg))) {
-    console.log(`${arg} does not exists.`);
-    process.exit(1);
-  }
-  if (fs.existsSync(path.join(sourceDir, arg))) {
-    console.log(
-      `${arg} already exists in ${sourceDir.replace(_dirname + "/", "")}`
-    );
-    process.exit(1);
-  }
-  try {
-    if (!fs.existsSync(sourceDir)) {
-      fs.mkdirSync(sourceDir, { recursive: true });
-      console.log("Directory support/root was created.");
+for (const arg of args) {
+  if (arg) {
+    if (!fs.existsSync(path.join(_dirname, arg))) {
+      console.log(`${arg} does not exists.`);
+      continue;
     }
+    if (fs.existsSync(path.join(sourceDir, arg))) {
+      console.log(
+        `${arg} already exists in ${sourceDir.replace(_dirname + "/", "")}`
+      );
+      continue;
+    }
+    try {
+      if (!fs.existsSync(sourceDir)) {
+        fs.mkdirSync(sourceDir, { recursive: true });
+        console.log("Directory support/root was created.");
+      }
 
-    fs.renameSync(path.join(_dirname, arg), path.join(sourceDir, arg));
-    fs.appendFileSync(path.join(_dirname, ".gitignore"), `/${arg}\n`);
-    child_process.execSync(`git rm -rf ${arg}`);
-  } catch (err) {
-    console.error(err);
+      fs.renameSync(path.join(_dirname, arg), path.join(sourceDir, arg));
+      fs.appendFileSync(path.join(_dirname, ".gitignore"), `/${arg}\n`);
+      child_process.execSync(`git rm -rf ${arg}`);
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
 
